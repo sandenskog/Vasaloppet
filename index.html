@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klara & Louise - Oppet Spar 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&family=Permanent+Marker&display=swap');
+
+  :root {
+    --pink: #ff6b9d;
+    --hot-pink: #ff2d78;
+    --purple: #c44dff;
+    --blue: #4da6ff;
+    --ice-blue: #b8e6ff;
+    --snow: #f0f8ff;
+    --gold: #ffd700;
+    --orange: #ff8c42;
+    --dark: #1a1a2e;
+    --gradient-party: linear-gradient(135deg, #ff6b9d, #c44dff, #4da6ff);
+    --gradient-sunset: linear-gradient(135deg, #ff8c42, #ff2d78, #c44dff);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--dark);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* ===== SNOWFALL ===== */
+  .snowfall {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  .snowflake {
+    position: absolute;
+    top: -10px;
+    color: #fff;
+    font-size: 1em;
+    animation: fall linear infinite;
+    opacity: 0.8;
+  }
+  @keyframes fall {
+    to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3e 30%, #2a1a4e 60%, #1a2a5e 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 40%;
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.05));
+    clip-path: polygon(0 40%, 15% 55%, 30% 35%, 50% 50%, 70% 30%, 85% 45%, 100% 25%, 100% 100%, 0 100%);
+  }
+  .hero-badge {
+    background: var(--gradient-party);
+    padding: 0.5rem 2rem;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+  .hero h1 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1;
+    background: var(--gradient-party);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    text-shadow: none;
+    filter: drop-shadow(0 0 30px rgba(255,107,157,0.3));
+  }
+  .hero h2 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--ice-blue);
+    margin-bottom: 0.5rem;
+  }
+  .hero .subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+  .hero .ski-emoji {
+    font-size: 4rem;
+    animation: ski-bounce 1.5s ease-in-out infinite;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  @keyframes ski-bounce {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  /* ===== COUNTDOWN ===== */
+  .countdown-section {
+    background: linear-gradient(135deg, #1a1a3e, #2a1a5e);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .countdown-section h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .countdown-box {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,215,0,0.3);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    min-width: 100px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s;
+  }
+  .countdown-box:hover { transform: scale(1.1) rotate(-2deg); }
+  .countdown-box .number {
+    font-family: 'Bangers', cursive;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .countdown-box .label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .countdown-done {
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+    color: var(--gold);
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  /* ===== SECTIONS ===== */
+  section {
+    padding: 4rem 2rem;
+  }
+  .section-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .section-title span {
+    background: var(--gradient-party);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ===== BIO CARDS ===== */
+  .bio-section {
+    background: linear-gradient(180deg, #1a1a2e, #16213e);
+  }
+  .bio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .bio-card {
+    background: rgba(255,255,255,0.04);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+  .bio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(196,77,255,0.15);
+  }
+  .bio-card-header {
+    padding: 2rem 2rem 1rem;
+    position: relative;
+  }
+  .bio-card-header.klara { background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(196,77,255,0.1)); }
+  .bio-card-header.louise { background: linear-gradient(135deg, rgba(77,166,255,0.2), rgba(196,77,255,0.1)); }
+
+  .bio-age-badge {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: var(--gradient-sunset);
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bangers', cursive;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(255,45,120,0.4);
+    animation: pulse 3s ease-in-out infinite;
+  }
+  .bio-name {
+    font-family: 'Bangers', cursive;
+    font-size: 2.2rem;
+    margin-bottom: 0.3rem;
+  }
+  .bio-name.klara { color: var(--pink); }
+  .bio-name.louise { color: var(--blue); }
+  .bio-tagline {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+  }
+  .bio-body { padding: 1.5rem 2rem 2rem; }
+  .bio-body p { line-height: 1.7; color: rgba(255,255,255,0.8); margin-bottom: 1rem; font-size: 0.95rem; }
+  .bio-highlight {
+    background: rgba(255,215,0,0.1);
+    border-left: 3px solid var(--gold);
+    padding: 0.8rem 1rem;
+    border-radius: 0 12px 12px 0;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  /* ===== SPORTS HISTORY ===== */
+  .sports-section {
+    background: linear-gradient(180deg, #16213e, #0f3460);
+  }
+  .timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0; bottom: 0;
+    width: 3px;
+    background: var(--gradient-party);
+    border-radius: 3px;
+  }
+  .timeline-item {
+    padding-left: 60px;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 12px; top: 5px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--purple);
+    background: var(--dark);
+  }
+  .timeline-item.klara::before { border-color: var(--pink); }
+  .timeline-item.louise::before { border-color: var(--blue); }
+  .timeline-year {
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    color: var(--gold);
+  }
+  .timeline-event {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+  }
+  .timeline-person {
+    display: inline-block;
+    padding: 0.1rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-left: 0.5rem;
+  }
+  .timeline-person.klara { background: rgba(255,107,157,0.2); color: var(--pink); }
+  .timeline-person.louise { background: rgba(77,166,255,0.2); color: var(--blue); }
+
+  /* ===== BETTING ===== */
+  .betting-section {
+    background: linear-gradient(180deg, #0f3460, #1a1a3e);
+    text-align: center;
+  }
+  .betting-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.05);
+    border-radius: 24px;
+    padding: 2.5rem;
+    border: 2px solid rgba(255,215,0,0.2);
+  }
+  .betting-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .betting-racer {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+    padding: 1rem;
+    border-radius: 16px;
+  }
+  .betting-racer:hover { transform: scale(1.08); }
+  .betting-racer.selected { background: rgba(255,215,0,0.1); border: 2px solid var(--gold); }
+  .betting-racer .emoji { font-size: 3rem; display: block; margin-bottom: 0.5rem; }
+  .betting-racer .name { font-family: 'Bangers', cursive; font-size: 1.5rem; }
+  .betting-racer.r-klara .name { color: var(--pink); }
+  .betting-racer.r-louise .name { color: var(--blue); }
+  .betting-racer .odds { color: var(--gold); font-weight: 800; font-size: 0.9rem; }
+  .vs-text {
+    font-family: 'Bangers', cursive;
+    font-size: 2.5rem;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255,215,0,0.5);
+  }
+  .betting-bar-container {
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    height: 40px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    display: flex;
+  }
+  .betting-bar-klara {
+    background: linear-gradient(90deg, var(--pink), var(--hot-pink));
+    height: 100%;
+    transition: width 0.8s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    min-width: 60px;
+  }
+  .betting-bar-louise {
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    height: 100%;
+    transition: width 0.8s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    min-width: 60px;
+  }
+  .bet-btn {
+    background: var(--gradient-sunset);
+    border: none;
+    color: #fff;
+    padding: 0.8rem 2.5rem;
+    border-radius: 50px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    letter-spacing: 1px;
+  }
+  .bet-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(255,45,120,0.4);
+  }
+  .bet-result {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    min-height: 2rem;
+  }
+  .total-votes {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ===== SKI RACE GAME ===== */
+  .game-section {
+    background: linear-gradient(180deg, #1a1a3e, #0a2a4e);
+    text-align: center;
+  }
+  .game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.04);
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .game-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(180deg, #87ceeb, #b8e6ff 30%, #fff 30.5%, #f5f5ff);
+    border-radius: 16px;
+    overflow: hidden;
+    height: 350px;
+    margin-bottom: 1rem;
+  }
+  .game-track {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .game-trees {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70%;
+  }
+  .game-skier {
+    position: absolute;
+    font-size: 2.2rem;
+    transition: left 0.15s ease-out;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+  .game-skier.klara-skier { top: 38%; }
+  .game-skier.louise-skier { top: 55%; }
+  .game-obstacle {
+    position: absolute;
+    font-size: 1.5rem;
+  }
+  .game-finish {
+    position: absolute;
+    right: 20px;
+    top: 30%;
+    height: 45%;
+    width: 4px;
+    background: repeating-linear-gradient(0deg, #000, #000 8px, #fff 8px, #fff 16px);
+    border-radius: 2px;
+  }
+  .game-finish::before {
+    content: 'MORA';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Bangers', cursive;
+    font-size: 0.9rem;
+    color: var(--gold);
+    white-space: nowrap;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.5);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .game-distance {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 0.7rem;
+    color: rgba(0,0,0,0.4);
+    font-weight: 800;
+  }
+  .game-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .game-btn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: #fff;
+  }
+  .game-btn:hover { transform: scale(1.08); }
+  .game-btn.start { background: linear-gradient(135deg, #00c853, #00e676); }
+  .game-btn.mash-klara { background: linear-gradient(135deg, var(--pink), var(--hot-pink)); }
+  .game-btn.mash-louise { background: linear-gradient(135deg, var(--blue), var(--purple)); }
+  .game-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .game-info {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .game-winner-banner {
+    font-family: 'Bangers', cursive;
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 16px;
+    margin-top: 1rem;
+    display: none;
+    animation: pulse 0.5s ease-in-out infinite;
+  }
+
+  /* ===== GALLERY ===== */
+  .gallery-section {
+    background: linear-gradient(180deg, #0a2a4e, #1a1a2e);
+  }
+  .gallery-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .gallery-tab {
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+  }
+  .gallery-tab.active, .gallery-tab:hover {
+    background: var(--gradient-party);
+    color: #fff;
+    border-color: transparent;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .gallery-item {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: transform 0.4s;
+  }
+  .gallery-item:hover { transform: scale(1.03); }
+  .gallery-item img, .gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .gallery-item .caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 2rem 1rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .gallery-item.video-item::after {
+    content: '\25B6';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    pointer-events: none;
+    opacity: 0.8;
+  }
+  .gallery-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img, .lightbox video {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 12px;
+    object-fit: contain;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px; right: 30px;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10001;
+  }
+
+  /* ===== WEATHER ===== */
+  .weather-section {
+    background: linear-gradient(180deg, #1a1a2e, #16213e);
+    text-align: center;
+  }
+  .weather-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .weather-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 24px;
+    padding: 2rem;
+    min-width: 280px;
+    flex: 1;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.3s;
+  }
+  .weather-card:hover { transform: translateY(-5px); }
+  .weather-card h3 {
+    font-family: 'Bangers', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .weather-card.salen h3 { color: var(--pink); }
+  .weather-card.mora h3 { color: var(--blue); }
+  .weather-icon { font-size: 3rem; margin: 0.5rem 0; }
+  .weather-temp {
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+  }
+  .weather-desc {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    margin-bottom: 0.5rem;
+  }
+  .weather-details {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ===== MUSIC ===== */
+  .music-section {
+    background: linear-gradient(180deg, #16213e, #1a1a2e);
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  .music-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.05);
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .music-card a {
+    display: inline-block;
+    background: linear-gradient(135deg, #1DB954, #1ed760);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 800;
+    transition: transform 0.3s;
+    margin-top: 1rem;
+  }
+  .music-card a:hover { transform: scale(1.08); }
+
+  /* ===== PINK RIBBON ===== */
+  .ribbon-section {
+    background: linear-gradient(135deg, rgba(255,107,157,0.15), rgba(196,77,255,0.1));
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .ribbon-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .ribbon-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .ribbon-content h3 {
+    font-family: 'Bangers', cursive;
+    font-size: 2rem;
+    color: var(--pink);
+    margin-bottom: 1rem;
+  }
+  .ribbon-content p {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #0a0a1a;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  footer p { color: rgba(255,255,255,0.3); font-size: 0.85rem; margin-bottom: 0.5rem; }
+  footer .hearts {
+    font-size: 1.5rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* ===== FUN FACTS TICKER ===== */
+  .ticker {
+    background: var(--gradient-party);
+    padding: 0.8rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-content {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* ===== CONFETTI ===== */
+  .confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    z-index: 9998;
+    pointer-events: none;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .bio-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .gallery-item.wide { grid-column: span 1; aspect-ratio: 1; }
+    .betting-vs { gap: 1rem; }
+    .game-canvas-wrapper { height: 250px; }
+    section { padding: 3rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SNOWFALL -->
+<div class="snowfall" id="snowfall"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="ski-emoji">&#9975;</span>
+  <div class="hero-badge">Oppet Spar 2026</div>
+  <h1>Klara & Louise</h1>
+  <h2>Salen &rarr; Mora &bull; 90 km</h2>
+  <p class="subtitle">Faster och brorsdotter. Canceroverlevare och fotbollsspelare. 50 &amp; 25 ar. En resa, ett mal, oandlig styrka.</p>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-content">
+    &#9975; KLARA FYLLER 25! &nbsp;&bull;&nbsp; LOUISE FYLLER 50! &nbsp;&bull;&nbsp; 10 AR CANCERFRI! &nbsp;&bull;&nbsp; 3 MARATON 2025! &nbsp;&bull;&nbsp; SVENSK KLASSIKER! &nbsp;&bull;&nbsp; SALEN &rarr; MORA 90 KM! &nbsp;&bull;&nbsp; OPPET SPAR MANDAG 23/2! &nbsp;&bull;&nbsp; BLUEFIELD UNIVERSITY! &nbsp;&bull;&nbsp; ARKITEKTER UTAN GRANSER! &nbsp;&bull;&nbsp; TEAM OMDAL-SASSENE! &nbsp;&bull;&nbsp; LETS GOOO! &#9975;
+  </div>
+</div>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <h2>&#9200; Nedrakning till start!</h2>
+  <div class="countdown-grid" id="countdown">
+    <div class="countdown-box"><div class="number" id="cd-days">-</div><div class="label">Dagar</div></div>
+    <div class="countdown-box"><div class="number" id="cd-hours">-</div><div class="label">Timmar</div></div>
+    <div class="countdown-box"><div class="number" id="cd-mins">-</div><div class="label">Minuter</div></div>
+    <div class="countdown-box"><div class="number" id="cd-secs">-</div><div class="label">Sekunder</div></div>
+  </div>
+</section>
+
+<!-- BIOGRAPHIES -->
+<section class="bio-section">
+  <h2 class="section-title"><span>Moten med hjaltinnorna</span></h2>
+  <div class="bio-grid">
+    <!-- KLARA -->
+    <div class="bio-card">
+      <div class="bio-card-header klara">
+        <div class="bio-age-badge">25</div>
+        <div class="bio-name klara">Klara Omdal Lundgren</div>
+        <div class="bio-tagline">Fotbollsspelaren som blev skidakare</div>
+      </div>
+      <div class="bio-body">
+        <p>Klara vaxte upp i Helsingborg och gick pa Filbornaskolan &ndash; ett idrottsgymnasium dar hon finslipade sin talang pa fotbollsplanen. Med drommen om college i USA packade hon vaskorna och flog over Atlanten.</p>
+        <p>Pa <strong>Bluefield University</strong> i Virginia (nara West Virginia-gransen) spelade hon som forsvarare/mittfaltare med trujan #16. Hon studerade psykologi och tog examen 2022.</p>
+        <div class="bio-highlight">
+          &#127942; Klaras Oppet Spar ar den <strong>sista pusselbiten</strong> i hennes Svensk Klassiker &ndash; paborjad for Brostcancerforbundet tillsammans med sportjournalisten Patrik Ekwall och hans Rosa Team.
+        </div>
+        <p>Tillbaka i Sverige har Klara bytt fotbollsskorna mot skidpjaxor. Fran collegefotboll i Appalacherna till Vasaloppsspar &ndash; det ar en resa!</p>
+      </div>
+    </div>
+
+    <!-- LOUISE -->
+    <div class="bio-card">
+      <div class="bio-card-header louise">
+        <div class="bio-age-badge">50</div>
+        <div class="bio-name louise">Louise Lindquist Sassene</div>
+        <div class="bio-tagline">Arkitekt, canceroverlevare, maratonlopare, illustrator</div>
+      </div>
+      <div class="bio-body">
+        <p>Louise ar certifierad arkitekt SAR/MSA med over 20 ars erfarenhet. Hon ar verksamhetsomradeschef pa <strong>AWL Arkitekter</strong>, medgrundare av <strong>Arkitekter utan granser</strong>, och har bott och arbetat i Botswana, Uganda, Burkina Faso och Melbourne.</p>
+        <p>Hon skapar och driver <strong>Larmiljopodden</strong> &ndash; en prisvinnande podd om larmiljoer &ndash; och har illustrerat barnboken &quot;Legenden om Yennenga&quot;.</p>
+        <div class="bio-highlight">
+          &#127880; 2016 overlevde Louise <strong>trippelnegativ brostcancer</strong>. Hennes resa fran diagnos till tillfrisknande blev till det kreativa projektet <strong>@cancerkompisen</strong> och boken &quot;Jag, din cancerkompis&quot; &ndash; som hon kallar det viktigaste hon gjort i hela sitt liv.
+        </div>
+        <p>I ar firar hon <strong>10 ar cancerfri</strong>, och hon firar genom att aka hela vagen Salen&ndash;Mora med sin brorsdotter Klara!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPORTS HISTORY -->
+<section class="sports-section">
+  <h2 class="section-title"><span>&#127941; Idrottshistorik</span></h2>
+  <div class="timeline">
+    <div class="timeline-item louise">
+      <div class="timeline-year">2005 <span class="timeline-person louise">Louise</span></div>
+      <div class="timeline-event">Kor <strong>Tjejvasan</strong> (under namnet Louise Lindquist)</div>
+    </div>
+    <div class="timeline-item klara">
+      <div class="timeline-year">2018-2020 <span class="timeline-person klara">Klara</span></div>
+      <div class="timeline-event">Idrottsgymnasiet <strong>Filbornaskolan</strong>, Helsingborg &ndash; fotbollsinriktning</div>
+    </div>
+    <div class="timeline-item klara">
+      <div class="timeline-year">2020-2022 <span class="timeline-person klara">Klara</span></div>
+      <div class="timeline-event">Fotbollscollege pa <strong>Bluefield University</strong>, Virginia, USA. Position: forsvarare/mittfaltare #16. Examen i psykologi.</div>
+    </div>
+    <div class="timeline-item klara">
+      <div class="timeline-year">2024-2025 <span class="timeline-person klara">Klara</span></div>
+      <div class="timeline-event">Paborjar <strong>En Svensk Klassiker</strong> for Brostcancerforbundet med Patrik Ekwalls Rosa Team. Genomfor Vatternrundan, Vansbrosimningen &amp; Lidingoloppet.</div>
+    </div>
+    <div class="timeline-item louise">
+      <div class="timeline-year">Maj 2025 <span class="timeline-person louise">Louise</span></div>
+      <div class="timeline-event"><strong>Stockholm Maraton</strong> &ndash; tid: 6:15:47 (klubb: Dynamo Vegas Laufklub)</div>
+    </div>
+    <div class="timeline-item louise">
+      <div class="timeline-year">Sep 2025 <span class="timeline-person louise">Louise</span></div>
+      <div class="timeline-event"><strong>Marathon du Medoc</strong> &ndash; det legendariska vinmaraton i Frankrike!</div>
+    </div>
+    <div class="timeline-item louise">
+      <div class="timeline-year">Sep 2025 <span class="timeline-person louise">Louise</span></div>
+      <div class="timeline-event"><strong>Berlin Maraton</strong> &ndash; 3 av 3 maraton klart pa ett ar!</div>
+    </div>
+    <div class="timeline-item klara">
+      <div class="timeline-year">23 feb 2026 <span class="timeline-person klara">Klara</span> <span class="timeline-person louise">Louise</span></div>
+      <div class="timeline-event">&#127775; <strong>Oppet Spar</strong> &ndash; Salen till Mora, 90 km! Klaras sista del i Svensk Klassiker. Louises 10-ars cancerfri-firande!</div>
+    </div>
+  </div>
+</section>
+
+<!-- PINK RIBBON -->
+<section class="ribbon-section">
+  <div class="ribbon-content">
+    <div class="ribbon-icon">&#127880;</div>
+    <h3>Starkare an cancern</h3>
+    <p>For 10 ar sedan fick Louise diagnosen trippelnegativ brostcancer &ndash; en aggressiv cancerform som inte kan behandlas med hormonterapi. Tio manaders tung cellgiftsbehandling, operation och stralning. Idag star hon har: cancerfri, starkare an nagonsin, och redo att aka 90 km pa skidor.</p>
+    <p style="margin-top: 1rem;">Klara inledde sin Svensk Klassiker-resa tillsammans med sportjournalisten <strong>Patrik Ekwall</strong> och hans <strong>Rosa Team</strong> &ndash; till forman for Brostcancerforbundet. Patrik forlorade sin fru Hannah till samma sjukdom 2021. Hans kampanj Rosa Matchen och Ekwall Rullar har samlat in miljoner till brostcancerforskning.</p>
+    <p style="margin-top: 1rem; color: var(--pink); font-weight: 800;">Faster och brorsdotter &ndash; forenade i kampen mot brostcancer. &#10084;&#65039;</p>
+  </div>
+</section>
+
+<!-- BETTING POLL -->
+<section class="betting-section">
+  <h2 class="section-title"><span>&#127922; Vem kommer i mal forst?</span></h2>
+  <div class="betting-card">
+    <div class="betting-vs">
+      <div class="betting-racer r-klara" id="bet-klara" onclick="placeBet('klara')">
+        <span class="emoji">&#9975;</span>
+        <span class="name">Klara</span>
+        <span class="odds">25 ar &bull; Fotbollsben</span>
+      </div>
+      <div class="vs-text">VS</div>
+      <div class="betting-racer r-louise" id="bet-louise" onclick="placeBet('louise')">
+        <span class="emoji">&#9975;</span>
+        <span class="name">Louise</span>
+        <span class="odds">50 ar &bull; 3 maraton i benen</span>
+      </div>
+    </div>
+    <p style="color:rgba(255,255,255,0.5); font-size:0.85rem; margin-bottom: 1rem;">Klicka pa den du tror kommer forst!</p>
+    <div class="betting-bar-container">
+      <div class="betting-bar-klara" id="bar-klara" style="width:50%">Klara 50%</div>
+      <div class="betting-bar-louise" id="bar-louise" style="width:50%">Louise 50%</div>
+    </div>
+    <div class="total-votes" id="total-votes">0 roster totalt</div>
+    <div class="bet-result" id="bet-result"></div>
+  </div>
+</section>
+
+<!-- SKI RACE GAME -->
+<section class="game-section">
+  <h2 class="section-title"><span>&#127926; Skidracet: Salen &rarr; Mora</span></h2>
+  <div class="game-container">
+    <p class="game-info">Tryck snabbt pa knapparna for att driva din akare framat! Den som mashar snabbast vinner.</p>
+    <div class="game-canvas-wrapper" id="game-canvas">
+      <!-- Sky & mountains drawn via JS -->
+      <svg class="game-trees" viewBox="0 0 800 250" preserveAspectRatio="none">
+        <!-- trees -->
+        <polygon points="30,250 40,80 50,250" fill="#1a5c2a" opacity="0.6"/>
+        <polygon points="80,250 95,60 110,250" fill="#1a6c2a" opacity="0.5"/>
+        <polygon points="150,250 160,90 170,250" fill="#1a5c2a" opacity="0.7"/>
+        <polygon points="220,250 235,50 250,250" fill="#1a6c2a" opacity="0.4"/>
+        <polygon points="320,250 330,70 340,250" fill="#1a5c2a" opacity="0.6"/>
+        <polygon points="400,250 415,40 430,250" fill="#1a6c2a" opacity="0.5"/>
+        <polygon points="500,250 510,80 520,250" fill="#1a5c2a" opacity="0.7"/>
+        <polygon points="580,250 595,55 610,250" fill="#1a6c2a" opacity="0.4"/>
+        <polygon points="660,250 670,75 680,250" fill="#1a5c2a" opacity="0.6"/>
+        <polygon points="730,250 745,45 760,250" fill="#1a6c2a" opacity="0.5"/>
+        <!-- snow ground -->
+        <rect x="0" y="220" width="800" height="30" fill="#e8f0fe" opacity="0.3"/>
+      </svg>
+      <!-- Ski tracks -->
+      <div style="position:absolute; top:42%; left:0; right:0; height:2px; background: repeating-linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 10px, transparent 10px, transparent 20px);"></div>
+      <div style="position:absolute; top:59%; left:0; right:0; height:2px; background: repeating-linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 10px, transparent 10px, transparent 20px);"></div>
+
+      <!-- Distance markers -->
+      <div class="game-distance">
+        <span>Salen 0km</span><span>Mangsbodarna 24km</span><span>Risberg 47km</span><span>Oxberg 62km</span><span>Mora 90km</span>
+      </div>
+
+      <div class="game-skier klara-skier" id="skier-klara" style="left: 2%;">&#127939;&#8205;&#9792;&#65039;</div>
+      <div class="game-skier louise-skier" id="skier-louise" style="left: 2%;">&#127939;&#8205;&#9792;&#65039;</div>
+      <div class="game-finish"></div>
+    </div>
+    <div class="game-controls">
+      <button class="game-btn start" id="game-start" onclick="startGame()">&#9654; Starta racet!</button>
+      <button class="game-btn mash-klara" id="btn-mash-klara" onclick="mashSkier('klara')" disabled>&#9975; MASHA FOR KLARA!</button>
+      <button class="game-btn mash-louise" id="btn-mash-louise" onclick="mashSkier('louise')" disabled>&#9975; MASHA FOR LOUISE!</button>
+    </div>
+    <div class="game-winner-banner" id="game-winner"></div>
+  </div>
+</section>
+
+<!-- PHOTO/VIDEO GALLERY -->
+<section class="gallery-section">
+  <h2 class="section-title"><span>&#128247; Fran resan</span></h2>
+  <div class="gallery-tabs">
+    <div class="gallery-tab active" onclick="filterGallery('all')">Alla</div>
+    <div class="gallery-tab" onclick="filterGallery('together')">Tillsammans</div>
+    <div class="gallery-tab" onclick="filterGallery('action')">Pa sparet</div>
+    <div class="gallery-tab" onclick="filterGallery('prep')">Forberedelser</div>
+    <div class="gallery-tab" onclick="filterGallery('video')">Filmer</div>
+  </div>
+  <div class="gallery-grid" id="gallery-grid">
+    <!-- Filled by JS -->
+  </div>
+</section>
+
+<!-- WEATHER -->
+<section class="weather-section">
+  <h2 class="section-title"><span>&#127782;&#65039; Vader just nu</span></h2>
+  <div class="weather-grid">
+    <div class="weather-card salen">
+      <h3>Salen (Start)</h3>
+      <div class="weather-icon" id="weather-icon-salen">&#127782;&#65039;</div>
+      <div class="weather-temp" id="weather-temp-salen">--</div>
+      <div class="weather-desc" id="weather-desc-salen">Laddar...</div>
+      <div class="weather-details">
+        <span id="weather-wind-salen">&#127744; -- m/s</span>
+        <span id="weather-snow-salen">&#10052;&#65039; -- cm sno</span>
+      </div>
+    </div>
+    <div class="weather-card mora">
+      <h3>Mora (Mal)</h3>
+      <div class="weather-icon" id="weather-icon-mora">&#127782;&#65039;</div>
+      <div class="weather-temp" id="weather-temp-mora">--</div>
+      <div class="weather-desc" id="weather-desc-mora">Laddar...</div>
+      <div class="weather-details">
+        <span id="weather-wind-mora">&#127744; -- m/s</span>
+        <span id="weather-snow-mora">&#10052;&#65039; -- cm sno</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section class="music-section">
+  <h2 class="section-title"><span>&#127925; Vasaloppshymnen</span></h2>
+  <div class="music-card">
+    <p style="font-size:3rem; margin-bottom:0.5rem;">&#127925;</p>
+    <p style="font-family:'Bangers',cursive; font-size:1.5rem; color: var(--gold);">Vasaloppet Hymn</p>
+    <p style="color:rgba(255,255,255,0.5); font-size:0.85rem; margin-top:0.3rem;">Anders Wagberg (1998)</p>
+    <a href="https://open.spotify.com/track/1LAhwThjMRWJK30tOWa8nT" target="_blank" rel="noopener">&#127911; Lyssna pa Spotify</a>
+    <br>
+    <a href="https://www.youtube.com/watch?v=cQeWnWZoxBA" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #ff0000, #cc0000); margin-top:0.5rem;">&#9654; Se pa YouTube</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="hearts">&#10084;&#65039;&#9975;&#10084;&#65039;</div>
+  <p style="font-family:'Bangers',cursive; font-size:1.3rem; color: var(--pink); margin: 0.5rem 0;">Klara & Louise &ndash; Oppet Spar 2026</p>
+  <p>Mandag 23 februari &bull; Salen &rarr; Mora &bull; 90 km</p>
+  <p style="margin-top:0.5rem;">For Brostcancerforbundet &#127880; &bull; 10 ar cancerfri &bull; 25 &amp; 50 ar</p>
+  <p style="margin-top: 1rem; font-size: 0.7rem; color: rgba(255,255,255,0.2);">Skapad med karlek och lite for mycket kaffe</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// ===== SNOWFALL =====
+(function createSnow() {
+  const container = document.getElementById('snowfall');
+  const flakes = ['*', '*', '+', '.'];
+  for (let i = 0; i < 50; i++) {
+    const s = document.createElement('div');
+    s.className = 'snowflake';
+    s.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+    s.style.left = Math.random() * 100 + '%';
+    s.style.fontSize = (Math.random() * 1.2 + 0.4) + 'em';
+    s.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    s.style.animationDelay = Math.random() * 10 + 's';
+    s.style.opacity = Math.random() * 0.6 + 0.2;
+    container.appendChild(s);
+  }
+})();
+
+// ===== COUNTDOWN =====
+function updateCountdown() {
+  // Monday 23 Feb 2026 at 08:00 (typical Vasaloppet start time)
+  const target = new Date('2026-02-23T08:00:00+01:00');
+  const now = new Date();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    document.getElementById('countdown').innerHTML = '<div class="countdown-done">NU AR DET DAGS! HEJA KLARA & LOUISE!</div>';
+    return;
+  }
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const secs = Math.floor((diff % (1000*60)) / 1000);
+
+  document.getElementById('cd-days').textContent = days;
+  document.getElementById('cd-hours').textContent = hours;
+  document.getElementById('cd-mins').textContent = mins;
+  document.getElementById('cd-secs').textContent = secs;
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ===== BETTING =====
+let votes = { klara: 0, louise: 0 };
+// Load from localStorage
+try {
+  const saved = JSON.parse(localStorage.getItem('vasaBets'));
+  if (saved) votes = saved;
+} catch(e) {}
+
+function updateBars() {
+  const total = votes.klara + votes.louise;
+  if (total === 0) return;
+  const kp = Math.round((votes.klara / total) * 100);
+  const lp = 100 - kp;
+  document.getElementById('bar-klara').style.width = kp + '%';
+  document.getElementById('bar-klara').textContent = 'Klara ' + kp + '%';
+  document.getElementById('bar-louise').style.width = lp + '%';
+  document.getElementById('bar-louise').textContent = 'Louise ' + lp + '%';
+  document.getElementById('total-votes').textContent = total + ' roster totalt';
+}
+updateBars();
+
+function placeBet(who) {
+  votes[who]++;
+  localStorage.setItem('vasaBets', JSON.stringify(votes));
+  updateBars();
+
+  // Visual feedback
+  const el = document.getElementById('bet-' + who);
+  el.classList.add('selected');
+  setTimeout(() => el.classList.remove('selected'), 600);
+
+  const msgs = who === 'klara'
+    ? ['Fotbollsbenen vinner!', 'Ungdomen pa Klaras sida!', 'College-kraften!', 'GO KLARA!']
+    : ['Maratonerfarenheten!', 'Louises kondition!', 'Alderns vishet!', 'GO LOUISE!'];
+  document.getElementById('bet-result').textContent = msgs[Math.floor(Math.random() * msgs.length)];
+  document.getElementById('bet-result').style.color = who === 'klara' ? 'var(--pink)' : 'var(--blue)';
+}
+
+// ===== SKI RACE GAME =====
+let gameRunning = false;
+let klaraPos = 2, louisePos = 2;
+const finishLine = 88;
+
+function startGame() {
+  klaraPos = 2; louisePos = 2;
+  gameRunning = true;
+  document.getElementById('skier-klara').style.left = '2%';
+  document.getElementById('skier-louise').style.left = '2%';
+  document.getElementById('btn-mash-klara').disabled = false;
+  document.getElementById('btn-mash-louise').disabled = false;
+  document.getElementById('game-start').disabled = true;
+  document.getElementById('game-winner').style.display = 'none';
+
+  // AI drift (slight random movement)
+  if (window.gameDrift) clearInterval(window.gameDrift);
+  window.gameDrift = setInterval(() => {
+    if (!gameRunning) return;
+    klaraPos += Math.random() * 0.3;
+    louisePos += Math.random() * 0.3;
+    document.getElementById('skier-klara').style.left = Math.min(klaraPos, finishLine) + '%';
+    document.getElementById('skier-louise').style.left = Math.min(louisePos, finishLine) + '%';
+    checkWin();
+  }, 200);
+}
+
+function mashSkier(who) {
+  if (!gameRunning) return;
+  const boost = 0.8 + Math.random() * 1.2;
+  if (who === 'klara') {
+    klaraPos += boost;
+    document.getElementById('skier-klara').style.left = Math.min(klaraPos, finishLine) + '%';
+  } else {
+    louisePos += boost;
+    document.getElementById('skier-louise').style.left = Math.min(louisePos, finishLine) + '%';
+  }
+  checkWin();
+}
+
+function checkWin() {
+  if (klaraPos >= finishLine || louisePos >= finishLine) {
+    gameRunning = false;
+    clearInterval(window.gameDrift);
+    document.getElementById('btn-mash-klara').disabled = true;
+    document.getElementById('btn-mash-louise').disabled = true;
+    document.getElementById('game-start').disabled = false;
+    document.getElementById('game-start').textContent = 'Kor igen!';
+
+    const banner = document.getElementById('game-winner');
+    banner.style.display = 'block';
+
+    if (klaraPos >= finishLine && louisePos >= finishLine) {
+      banner.textContent = 'LIKA! Bada i mal samtidigt!';
+      banner.style.background = 'var(--gradient-party)';
+    } else if (klaraPos >= finishLine) {
+      banner.textContent = 'KLARA VINNER! Fotbollsbenen levererar!';
+      banner.style.background = 'linear-gradient(135deg, var(--pink), var(--hot-pink))';
+      fireConfetti();
+    } else {
+      banner.textContent = 'LOUISE VINNER! Maratonerfarenhet!';
+      banner.style.background = 'linear-gradient(135deg, var(--blue), var(--purple))';
+      fireConfetti();
+    }
+  }
+}
+
+// ===== CONFETTI =====
+function fireConfetti() {
+  const colors = ['#ff6b9d','#c44dff','#4da6ff','#ffd700','#ff8c42','#00e676'];
+  for (let i = 0; i < 80; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.width = (Math.random() * 8 + 5) + 'px';
+    c.style.height = (Math.random() * 8 + 5) + 'px';
+    c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+    c.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+    document.body.appendChild(c);
+    const dur = Math.random() * 2 + 1.5;
+    c.animate([
+      { top: '-10px', opacity: 1 },
+      { top: '100vh', opacity: 0, transform: 'rotate(' + (Math.random()*720) + 'deg) translateX(' + (Math.random()*200-100) + 'px)' }
+    ], { duration: dur * 1000, easing: 'cubic-bezier(.2,.8,.3,1)' }).onfinish = () => c.remove();
+  }
+}
+
+// ===== GALLERY =====
+const galleryData = [
+  { src: 'web_images/b53b3ef1-d236-4bc0-9b83-42c1b74d2b2e.jpg', caption: 'Ganget redo for aventyret!', cat: 'together', wide: true },
+  { src: 'web_images/IMG_2429.jpg', caption: 'Faster & brorsdotter pa sparet', cat: 'together' },
+  { src: 'web_images/IMG_2431.jpg', caption: 'Leenden vid skidstugan', cat: 'together' },
+  { src: 'web_images/IMG_2461.jpg', caption: 'Vintervanner', cat: 'together' },
+  { src: 'web_images/IMG_2403.jpg', caption: 'Carb loading! Pommes pa vagen', cat: 'prep' },
+  { src: 'web_images/IMG_2425.jpg', caption: 'Klara stakar pa!', cat: 'action' },
+  { src: 'web_images/IMG_2427.jpg', caption: 'Selfie pa sparet', cat: 'together' },
+  { src: 'web_images/IMG_2424.jpg', caption: 'Solsken over fjallen', cat: 'action' },
+  { src: 'web_images/IMG_2518.jpg', caption: 'Fokus framat', cat: 'action' },
+  { src: 'web_images/IMG_2519.jpg', caption: 'Fischer-skidorna redo', cat: 'prep' },
+  { src: 'web_images/IMG_2434.jpg', caption: 'Solnedgang pa fjallet', cat: 'action', wide: true },
+  { src: 'web_images/IMG_2435.jpg', caption: 'Siluett i solnedgangen', cat: 'action' },
+  { src: 'web_images/IMG_2432.jpg', caption: 'Magisk vintersolnedgang', cat: 'action' },
+  { src: 'web_images/IMG_2426.jpg', caption: 'Sparet vantar', cat: 'action' },
+  { src: 'web_images/IMG_2430.jpg', caption: 'Duon redo', cat: 'together' },
+  { src: 'web_images/IMG_2404.jpg', caption: 'Kvallstraning i morkret!', cat: 'action' },
+  { src: 'web_images/IMG_2406.jpg', caption: 'Vila vid sparet', cat: 'action' },
+  { src: 'web_images/IMG_87321671-71CF-4CED-9A27-AE7EF825C28A.jpg', caption: 'SWIX V40 Blue Extra - ratt valla!', cat: 'prep' },
+  { src: 'web_images/IMG_001EF7E8-A013-4CBF-927A-8685E3ABCD78.jpg', caption: 'Vallningen pagar', cat: 'prep' },
+  // Videos
+  { src: 'IMG_2405.MOV', caption: 'Live fran forberedelserna!', cat: 'video', isVideo: true },
+  { src: '_users_d9f73356-8e04-4153-a7fb-71c087f16f1c_generated_489148bb-7701-4b53-a822-6c6b9e3c2b4d_generated_video.MP4', caption: 'Genererad hypefilm 1', cat: 'video', isVideo: true },
+  { src: '_users_d9f73356-8e04-4153-a7fb-71c087f16f1c_generated_59162e71-b247-44b1-acd8-b8231af1cc5a_generated_video.MP4', caption: 'Genererad hypefilm 2', cat: 'video', isVideo: true },
+  { src: '_users_d9f73356-8e04-4153-a7fb-71c087f16f1c_generated_808c5d2f-bfbb-415e-a238-460d21819060_generated_video.MP4', caption: 'Genererad hypefilm 3', cat: 'video', isVideo: true },
+];
+
+function renderGallery(filter) {
+  const grid = document.getElementById('gallery-grid');
+  grid.innerHTML = '';
+  const items = filter === 'all' ? galleryData : galleryData.filter(i => i.cat === filter);
+  items.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item' + (item.wide ? ' wide' : '') + (item.isVideo ? ' video-item' : '');
+    if (item.isVideo) {
+      const vid = document.createElement('video');
+      vid.src = item.src;
+      vid.muted = true;
+      vid.playsInline = true;
+      vid.preload = 'metadata';
+      div.appendChild(vid);
+      div.addEventListener('click', () => openVideoLightbox(item.src));
+    } else {
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.caption;
+      img.loading = 'lazy';
+      div.appendChild(img);
+      div.addEventListener('click', () => openLightbox(item.src));
+    }
+    const cap = document.createElement('div');
+    cap.className = 'caption';
+    cap.textContent = item.caption;
+    div.appendChild(cap);
+    grid.appendChild(div);
+  });
+}
+
+function filterGallery(cat) {
+  document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderGallery(cat);
+}
+
+renderGallery('all');
+
+// ===== LIGHTBOX =====
+function openLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  // Remove any video if present
+  const oldVid = lb.querySelector('video');
+  if (oldVid) oldVid.remove();
+  img.style.display = 'block';
+  img.src = src;
+  lb.classList.add('active');
+}
+function openVideoLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.style.display = 'none';
+  // Remove old video
+  const oldVid = lb.querySelector('video');
+  if (oldVid) oldVid.remove();
+  const vid = document.createElement('video');
+  vid.src = src;
+  vid.controls = true;
+  vid.autoplay = true;
+  vid.style.maxWidth = '90%';
+  vid.style.maxHeight = '90vh';
+  vid.style.borderRadius = '12px';
+  lb.appendChild(vid);
+  lb.classList.add('active');
+}
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.classList.remove('active');
+  const vid = lb.querySelector('video');
+  if (vid) { vid.pause(); vid.remove(); }
+}
+
+// ===== WEATHER (Open-Meteo API) =====
+async function fetchWeather() {
+  try {
+    // Salen: 61.16N, 13.27E
+    const salenRes = await fetch('https://api.open-meteo.com/v1/forecast?latitude=61.16&longitude=13.27&current=temperature_2m,weather_code,wind_speed_10m,snow_depth&timezone=Europe/Stockholm');
+    const salenData = await salenRes.json();
+    updateWeatherCard('salen', salenData.current);
+
+    // Mora: 61.00N, 14.54E
+    const moraRes = await fetch('https://api.open-meteo.com/v1/forecast?latitude=61.00&longitude=14.54&current=temperature_2m,weather_code,wind_speed_10m,snow_depth&timezone=Europe/Stockholm');
+    const moraData = await moraRes.json();
+    updateWeatherCard('mora', moraData.current);
+  } catch(e) {
+    console.log('Weather fetch error:', e);
+  }
+}
+
+function getWeatherEmoji(code) {
+  if (code <= 1) return '\u2600\uFE0F'; // sun
+  if (code <= 3) return '\u26C5'; // partly cloudy
+  if (code <= 48) return '\u2601\uFE0F'; // cloudy/fog
+  if (code <= 57) return '\uD83C\uDF27\uFE0F'; // drizzle
+  if (code <= 67) return '\uD83C\uDF27\uFE0F'; // rain
+  if (code <= 77) return '\u2744\uFE0F'; // snow
+  if (code <= 86) return '\uD83C\uDF28\uFE0F'; // heavy snow
+  return '\u26C8\uFE0F'; // thunderstorm
+}
+
+function getWeatherDesc(code) {
+  if (code === 0) return 'Klart';
+  if (code <= 3) return 'Delvis molnigt';
+  if (code <= 48) return 'Molnigt/dimma';
+  if (code <= 57) return 'Duggregn';
+  if (code <= 67) return 'Regn';
+  if (code <= 77) return 'Snofall';
+  if (code <= 86) return 'Kraftigt snofall';
+  return 'Aska';
+}
+
+function updateWeatherCard(loc, data) {
+  const code = data.weather_code;
+  document.getElementById('weather-icon-' + loc).textContent = getWeatherEmoji(code);
+  document.getElementById('weather-temp-' + loc).textContent = Math.round(data.temperature_2m) + '\u00B0C';
+  document.getElementById('weather-desc-' + loc).textContent = getWeatherDesc(code);
+  document.getElementById('weather-wind-' + loc).textContent = '\uD83C\uDF2C\uFE0F ' + Math.round(data.wind_speed_10m) + ' m/s';
+  const snowCm = data.snow_depth ? Math.round(data.snow_depth * 100) : 0;
+  document.getElementById('weather-snow-' + loc).textContent = '\u2744\uFE0F ' + snowCm + ' cm sno';
+}
+
+fetchWeather();
+// Refresh weather every 30 min
+setInterval(fetchWeather, 30 * 60 * 1000);
+
+// ===== KEYBOARD GAME SUPPORT =====
+document.addEventListener('keydown', (e) => {
+  if (!gameRunning) return;
+  if (e.key === 'a' || e.key === 'A') mashSkier('klara');
+  if (e.key === 'l' || e.key === 'L') mashSkier('louise');
+});
+</script>
+
+</body>
+</html>
